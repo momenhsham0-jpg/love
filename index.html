@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>هدية حُب خاصة لأغلى إنسانة ❤️</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts (Cairo & El Messiri) -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&family=El+Messiri:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        roseGold: '#B76E79',
+                        loveRed: '#E63946',
+                        softPink: '#FFF0F3',
+                        warmPeach: '#FFD166',
+                        deepCrimson: '#800020'
+                    },
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif'],
+                        messiri: ['El Messiri', 'serif'],
+                    },
+                    animation: {
+                        'float': 'float 3s ease-in-out infinite',
+                        'pulse-slow': 'pulse 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'bounce-soft': 'bounceSoft 2s infinite',
+                        'glow': 'glow 2s infinite alternate',
+                        'spin-slow': 'spin 12s linear infinite'
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-12px)' },
+                        },
+                        bounceSoft: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-6px)' },
+                        },
+                        glow: {
+                            '0%': { boxShadow: '0 0 15px rgba(230, 57, 70, 0.4)' },
+                            '100%': { boxShadow: '0 0 35px rgba(230, 57, 70, 0.9)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, #1f040a 0%, #0d0104 50%, #170308 100%);
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* Starry background effect */
+        .stars-bg {
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 40px 70px, #ffb703, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 90px 40px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 160px 120px, #ff4d6d, rgba(0,0,0,0));
+            background-repeat: repeat;
+            background-size: 200px 200px;
+            opacity: 0.3;
+        }
+
+        /* Envelope Styles */
+        .envelope-wrapper {
+            perspective: 1000px;
+        }
+        
+        .envelope {
+            position: relative;
+            width: 320px;
+            height: 220px;
+            background-color: #e76f51;
+            border-bottom-left-radius: 16px;
+            border-bottom-right-radius: 16px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7);
+            cursor: pointer;
+            transition: transform 0.6s ease;
+        }
+
+        @media (min-width: 640px) {
+            .envelope {
+                width: 420px;
+                height: 270px;
+            }
+        }
+
+        .envelope .flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 160px solid transparent;
+            border-right: 160px solid transparent;
+            border-top: 130px solid #f4a261;
+            transform-origin: top;
+            transition: transform 0.6s ease 0.2s, z-index 0.2s ease 0.2s;
+            z-index: 5;
+        }
+
+        @media (min-width: 640px) {
+            .envelope .flap {
+                border-left-width: 210px;
+                border-right-width: 210px;
+                border-top-width: 155px;
+            }
+        }
+
+        .envelope .pocket {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 160px solid #e76f51;
+            border-right: 160px solid #e76f51;
+            border-bottom: 115px solid #ee9b00;
+            border-bottom-left-radius: 16px;
+            border-bottom-right-radius: 16px;
+            z-index: 4;
+        }
+
+        @media (min-width: 640px) {
+            .envelope .pocket {
+                border-left-width: 210px;
+                border-right-width: 210px;
+                border-bottom-width: 140px;
+            }
+        }
+
+        .envelope .letter {
+            position: absolute;
+            bottom: 10px;
+            left: 15px;
+            right: 15px;
+            height: 88%;
+            background: #fff0f3;
+            border-radius: 12px;
+            padding: 20px;
+            color: #2b2b2b;
+            transition: transform 0.8s ease 0.4s, opacity 0.5s ease;
+            z-index: 3;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+
+        /* Envelope Open State */
+        .envelope.open .flap {
+            transform: rotateX(180deg);
+            z-index: 1;
+        }
+
+        .envelope.open .letter {
+            transform: translateY(-140px);
+            z-index: 6;
+        }
+
+        /* Floating Hearts Animations */
+        .floating-heart {
+            position: absolute;
+            pointer-events: none;
+            animation: floatUp 4s linear forwards;
+            opacity: 0;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) scale(0.8) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-400px) scale(1.5) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #110206;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #e63946;
+            border-radius: 4px;
+        }
+
+        /* Card Flip Effect */
+        .flip-card {
+            background-color: transparent;
+            perspective: 1000px;
+        }
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+        .flip-card:hover .flip-card-inner, .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 1.25rem;
+        }
+        .flip-card-back {
+            transform: rotateY(180deg);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-loveRed selection:text-white relative">
+
+    <!-- Ambient Stars Background -->
+    <div class="fixed inset-0 stars-bg pointer-events-none z-0"></div>
+
+    <!-- Floating Background Hearts Container -->
+    <div id="heartsContainer" class="fixed inset-0 pointer-events-none z-0 overflow-hidden"></div>
+
+    <!-- Floating Audio Control Widget -->
+    <div class="fixed top-5 left-5 z-50 flex items-center gap-3">
+        <button id="musicToggle" class="bg-gradient-to-r from-red-600 to-pink-600 hover:from-red-500 hover:to-pink-500 text-white p-3 sm:px-4 sm:py-3 rounded-full shadow-2xl transition-all transform hover:scale-110 focus:outline-none flex items-center gap-2 border border-pink-400/30">
+            <i id="musicIcon" class="fas fa-music text-lg animate-pulse"></i>
+            <span id="musicText" class="text-xs font-bold hidden sm:inline">أغنيتنا (تامر حسني) 🎵</span>
+        </button>
+        
+        <!-- Audio Source: Tamer Hosny Romantic Song (Royalty-free romantic piano fallback provided, expandable) -->
+        <audio id="bgMusic" loop preload="auto">
+            <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-piano-112188.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- STEP 1: ENVELOPE LANDING SCREEN (المظروف التفاعلي) -->
+    <!-- ================================================================= -->
+    <section id="envelopeSection" class="min-h-screen flex flex-col items-center justify-center p-4 relative z-10 transition-opacity duration-1000">
+        <div class="text-center mb-8 animate-float max-w-lg">
+            <span class="bg-red-500/20 text-pink-300 text-xs sm:text-sm font-extrabold px-4 py-1.5 rounded-full border border-red-500/40 backdrop-blur-md">
+                💌 رسالة حب طالعة من القلب مخصوص ليكي
+            </span>
+            <h1 class="text-3xl sm:text-5xl font-black mt-4 text-transparent bg-clip-text bg-gradient-to-r from-red-400 via-pink-300 to-amber-200 leading-tight">
+                في حاجة حلوة أوي مستنياكي جوه...
+            </h1>
+            <p class="text-gray-300 text-sm sm:text-base mt-3">دوسي على الظرف عشان تفتحي الهدية ❤️</p>
+        </div>
+
+        <!-- Interactive 3D Envelope -->
+        <div class="envelope-wrapper my-6">
+            <div id="envelope" class="envelope animate-bounce-soft" onclick="openEnvelope()">
+                <div class="flap"></div>
+                <div class="pocket"></div>
+                <!-- Wax Seal -->
+                <div id="waxSeal" class="absolute inset-0 flex items-center justify-center z-20 transition-all duration-300">
+                    <div class="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-red-700 to-red-900 rounded-full flex items-center justify-center shadow-2xl border-2 border-amber-300">
+                        <i class="fas fa-heart text-amber-200 text-2xl animate-pulse"></i>
+                    </div>
+                </div>
+                <!-- Letter Inside -->
+                <div class="letter flex flex-col items-center justify-center text-center">
+                    <i class="fas fa-quote-right text-red-500 text-2xl mb-2"></i>
+                    <p class="font-messiri text-lg sm:text-xl text-gray-800 font-bold leading-relaxed">
+                        "أنتِ مش بس حبيبتي.. أنتِ أحلى حاجة حصلتلي في حياتي كلها!"
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Welcome Action Button (Shows after opening envelope) -->
+        <div id="welcomeAction" class="opacity-0 transition-all duration-700 transform translate-y-6 text-center max-w-md mt-6 hidden">
+            <div class="bg-red-950/60 backdrop-blur-md p-6 rounded-3xl border border-red-500/40 shadow-2xl mb-6">
+                <p class="font-messiri text-xl sm:text-2xl text-pink-200 leading-relaxed">
+                    يا أجمل وبنوتة في الدنيا كلها.. عملتلك الموقع ده مخصوص عشان يفضل شاهد على حبنا وكل ذكرى حلوة بينا!
+                </p>
+            </div>
+            
+            <button onclick="startMainJourney()" class="group relative inline-flex items-center justify-center px-10 py-4 font-black text-white transition-all duration-300 bg-gradient-to-r from-red-600 via-pink-600 to-red-600 rounded-full shadow-2xl hover:scale-105 active:scale-95 focus:outline-none animate-glow">
+                <span class="text-xl sm:text-2xl">جاهزة؟ 🌚</span>
+                <i class="fas fa-heart mr-3 group-hover:scale-125 transition-transform text-pink-200"></i>
+            </button>
+        </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- STEP 2: MAIN GIFT WEBSITE CONTENT (الموقع الرئيسي) -->
+    <!-- ================================================================= -->
+    <main id="mainContent" class="hidden opacity-0 transition-opacity duration-1000 min-h-screen pb-20 relative z-10">
+
+        <!-- HERO & LOVE TIMER SECTION -->
+        <section class="py-16 text-center px-4 relative overflow-hidden">
+            <div class="max-w-4xl mx-auto">
+                <div class="relative inline-block mb-6">
+                    <div class="p-1.5 bg-gradient-to-r from-red-500 via-pink-500 to-amber-300 rounded-full shadow-2xl animate-glow">
+                        <img id="coupleAvatar" src="https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?auto=format&fit=crop&w=500&q=80" alt="صورتنا سوا" class="w-32 h-32 sm:w-44 sm:h-44 rounded-full object-cover border-4 border-gray-900">
+                    </div>
+                    <span class="absolute bottom-1 right-1 bg-red-600 text-white text-xs px-3 py-1 rounded-full shadow-lg font-bold border border-white/30">
+                        حبيبتي أنا ❤️
+                    </span>
+                </div>
+
+                <h1 class="text-4xl sm:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-red-400 via-pink-200 to-amber-200 mb-3">
+                    حكايتنا الأجمل مع بعض ✨
+                </h1>
+                <p class="text-lg sm:text-2xl text-pink-200 font-messiri max-w-2xl mx-auto leading-relaxed">
+                    كل ثانية بتعدي وأنتِ معايا بتبقى أحلى من اللي قبلها.. ربنا يخليكي ليا وما يحرمنيش منك أبداً!
+                </p>
+
+                <!-- LIVE COUNTER BOARD -->
+                <div class="mt-10 bg-gradient-to-b from-red-950/70 to-black/80 backdrop-blur-xl p-6 sm:p-8 rounded-3xl border border-red-500/30 shadow-2xl max-w-3xl mx-auto">
+                    <h3 class="text-amber-300 text-sm sm:text-base font-extrabold mb-6 tracking-wide flex items-center justify-center gap-2">
+                        <i class="fas fa-clock text-red-400 text-lg"></i> احنا مع بعض وبنحب بعض بقالنا بالضبط:
+                    </h3>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 text-center" id="loveCounter">
+                        <div class="bg-red-950/80 p-4 rounded-2xl border border-red-500/40">
+                            <span id="days" class="block text-3xl sm:text-5xl font-black text-white">0</span>
+                            <span class="text-xs sm:text-sm text-pink-300 font-bold mt-1 block">يوم</span>
+                        </div>
+                        <div class="bg-red-950/80 p-4 rounded-2xl border border-red-500/40">
+                            <span id="hours" class="block text-3xl sm:text-5xl font-black text-white">0</span>
+                            <span class="text-xs sm:text-sm text-pink-300 font-bold mt-1 block">ساعة</span>
+                        </div>
+                        <div class="bg-red-950/80 p-4 rounded-2xl border border-red-500/40">
+                            <span id="minutes" class="block text-3xl sm:text-5xl font-black text-white">0</span>
+                            <span class="text-xs sm:text-sm text-pink-300 font-bold mt-1 block">دقيقة</span>
+                        </div>
+                        <div class="bg-red-950/80 p-4 rounded-2xl border border-red-500/40">
+                            <span id="seconds" class="block text-3xl sm:text-5xl font-black text-white">0</span>
+                            <span class="text-xs sm:text-sm text-pink-300 font-bold mt-1 block">ثانية</span>
+                        </div>
+                    </div>
+
+                    <!-- FUN LOVE STATS -->
+                    <div class="mt-8 pt-6 border-t border-white/10 grid grid-cols-3 gap-2 text-center">
+                        <div>
+                            <span id="heartbeats" class="text-lg sm:text-2xl font-bold text-amber-300 block">0</span>
+                            <span class="text-[10px] sm:text-xs text-gray-400">دقة قلب بالحب 💓</span>
+                        </div>
+                        <div>
+                            <span id="smiles" class="text-lg sm:text-2xl font-bold text-pink-300 block">0</span>
+                            <span class="text-[10px] sm:text-xs text-gray-400">ضحكة سوا 😊</span>
+                        </div>
+                        <div>
+                            <span class="text-lg sm:text-2xl font-bold text-red-400 block">∞</span>
+                            <span class="text-[10px] sm:text-xs text-gray-400">حب ملوش نهاية ∞</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MEMORIES & ALBUM SECTION -->
+        <section class="py-12 px-4 max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <span class="text-red-400 text-sm font-bold tracking-widest uppercase"><i class="fas fa-camera-retro ml-1"></i> ذكرياتنا العسل</span>
+                <h2 class="text-3xl sm:text-4xl font-bold mt-2">لحظات مش ممكن أنساها معاكي 📸</h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-red-500 to-pink-500 mx-auto mt-3 rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+                <!-- Memory 1 -->
+                <div class="bg-gradient-to-b from-red-950/30 to-black/60 border border-red-500/20 rounded-3xl overflow-hidden shadow-2xl hover:border-red-500/60 transition-all duration-300 transform hover:-translate-y-2 group">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=800&q=80" alt="أول مرة اتكلمنا" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent"></div>
+                        <span class="absolute bottom-3 right-3 bg-red-600/90 text-white text-xs px-3 py-1 rounded-full backdrop-blur-md">
+                            <i class="far fa-calendar-alt ml-1"></i> أول مرة اتكلمنا
+                        </span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-pink-200 mb-2">اليوم اللي كل حاجة اتغيرت فيه 🌹</h3>
+                        <p class="text-gray-300 font-messiri text-lg leading-relaxed">
+                            "أول مرة اتكلمنا فيها، حسيت إن قلبي كان مستني اليوم ده من زمان. من ساعتها وكل يوم وأنتِ بتنوري دنيتي."
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Memory 2 -->
+                <div class="bg-gradient-to-b from-red-950/30 to-black/60 border border-red-500/20 rounded-3xl overflow-hidden shadow-2xl hover:border-red-500/60 transition-all duration-300 transform hover:-translate-y-2 group">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=800&q=80" alt="ضحك وهزار" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent"></div>
+                        <span class="absolute bottom-3 right-3 bg-pink-600/90 text-white text-xs px-3 py-1 rounded-full backdrop-blur-md">
+                            <i class="far fa-smile ml-1"></i> ضحك وهزار
+                        </span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-pink-200 mb-2">ضحكتك بالدنيا كلها 😃</h3>
+                        <p class="text-gray-300 font-messiri text-lg leading-relaxed">
+                            "لما بتضحكي من قلبك، بحس إن مشاكلي كلها اختفت. كل أكلة، كل مكالمة، وكل خناقة هبلة بينا بحبها!"
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Memory 3 -->
+                <div class="bg-gradient-to-b from-red-950/30 to-black/60 border border-red-500/20 rounded-3xl overflow-hidden shadow-2xl hover:border-red-500/60 transition-all duration-300 transform hover:-translate-y-2 group">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=800&q=80" alt="خروجات ومغامرات" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent"></div>
+                        <span class="absolute bottom-3 right-3 bg-amber-600/90 text-white text-xs px-3 py-1 rounded-full backdrop-blur-md">
+                            <i class="fas fa-utensils ml-1"></i> خروجاتنا العسل
+                        </span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-pink-200 mb-2">كل مكان معاكي له طعم تاني ☕</h3>
+                        <p class="text-gray-300 font-messiri text-lg leading-relaxed">
+                            "سواء قاعدين بنشرب قهوة أو بنتمشى في الشارع، وجودك جنبي بيخلي أي مكان عادي يبقى أجمل مكان في العالم."
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- QUIZ INTERACTIVE GAME SECTION -->
+        <section class="py-12 px-4 max-w-3xl mx-auto">
+            <div class="bg-gradient-to-br from-red-950/80 via-black to-red-950/80 backdrop-blur-xl p-6 sm:p-10 rounded-3xl border border-pink-500/40 shadow-2xl text-center">
+                <span class="bg-pink-500/20 text-pink-300 text-xs font-bold px-3 py-1 rounded-full border border-pink-500/30">🎮 لعبة 1: اختبار الحب</span>
+                <h2 class="text-2xl sm:text-3xl font-bold mt-3 mb-2">تحدي اختباري: عارفة بحبك قد إيه؟ 🤔</h2>
+                <p class="text-gray-300 text-sm mb-6">جاوبي على الأسئلة دي وشوفي هتاخدي هدية إيه في الآخر!</p>
+
+                <div id="quizContainer">
+                    <div id="quizQuestion" class="bg-black/50 p-6 rounded-2xl border border-white/10 mb-6">
+                        <h3 id="questionText" class="text-xl font-bold text-amber-200 mb-4">جاري تحميل السؤال...</h3>
+                        <div id="optionsContainer" class="grid grid-cols-1 gap-3"></div>
+                    </div>
+                </div>
+
+                <div id="quizResult" class="hidden bg-red-900/40 p-6 rounded-2xl border border-pink-500/50">
+                    <i class="fas fa-trophy text-4xl text-amber-300 mb-3 animate-bounce"></i>
+                    <h3 class="text-2xl font-bold text-white mb-2">نتيجة ممتازة يا قلبي! 🎉</h3>
+                    <p class="font-messiri text-xl text-pink-200 leading-relaxed mb-4">
+                        "أنتِ نجحتي في كل الأسئلة! كسبتي معايا عزومة على أكلة بتحبيها + حضن كبير أوي أول ما نشوف بعض! ❤️"
+                    </p>
+                    <button onclick="resetQuiz()" class="bg-pink-600 hover:bg-pink-500 text-white font-bold py-2 px-6 rounded-full text-sm transition-all">
+                        نعيد اللعبة تاني؟ 🔄
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- GAME 2: WHEEL OF FORTUNE (عجلة الحظ والأوامر) -->
+        <section class="py-12 px-4 max-w-3xl mx-auto">
+            <div class="bg-gradient-to-br from-purple-950/80 via-black to-red-950/80 backdrop-blur-xl p-6 sm:p-10 rounded-3xl border border-pink-500/40 shadow-2xl text-center relative overflow-hidden">
+                <span class="bg-amber-500/20 text-amber-300 text-xs font-bold px-3 py-1 rounded-full border border-amber-500/30">🎡 لعبة 2: عجلة تدليع الحبيبة</span>
+                <h2 class="text-2xl sm:text-3xl font-bold mt-3 mb-2">عجلة حظ الأوامر والمكافآت 🎁😂</h2>
+                <p class="text-gray-300 text-sm mb-6">دوسي على العجلة وخلي الحظ يختارلك مكافأة من حبيبتك هينفذها فوراً بدون نقاش!</p>
+
+                <div class="relative w-64 h-64 sm:w-80 sm:h-80 mx-auto my-6">
+                    <!-- Wheel Arrow Pointer -->
+                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 z-30 text-amber-300 text-3xl drop-shadow-md">
+                        <i class="fas fa-caret-down"></i>
+                    </div>
+
+                    <!-- Canvas Wheel -->
+                    <canvas id="wheelCanvas" width="320" height="320" class="w-full h-full rounded-full shadow-2xl transition-transform duration-1000 ease-out"></canvas>
+
+                    <!-- Center Spin Button -->
+                    <button id="spinBtn" onclick="spinWheel()" class="absolute inset-0 m-auto w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-r from-red-600 to-pink-600 rounded-full border-4 border-amber-300 text-white font-black text-sm sm:text-base shadow-2xl hover:scale-105 active:scale-95 transition-all z-20 flex items-center justify-center">
+                        لفيها! 🎯
+                    </button>
+                </div>
+
+                <div id="wheelResult" class="hidden mt-4 p-4 bg-white/10 rounded-2xl border border-pink-400 animate-pulse">
+                    <p class="text-xs text-pink-300 font-bold">🎉 كسبتي أمر واجب التنفيذ عليّ:</p>
+                    <h4 id="wheelPrizeText" class="text-xl sm:text-2xl font-black text-amber-300 mt-1">...</h4>
+                </div>
+            </div>
+        </section>
+
+        <!-- GAME 3: HEART CATCHER MINI-GAME (لعبة صائد القلوب) -->
+        <section class="py-12 px-4 max-w-3xl mx-auto">
+            <div class="bg-gradient-to-b from-red-950/90 to-black/90 backdrop-blur-xl p-6 sm:p-8 rounded-3xl border border-red-500/40 shadow-2xl text-center relative">
+                <span class="bg-red-500/20 text-red-300 text-xs font-bold px-3 py-1 rounded-full border border-red-500/30">🎮 لعبة 3: تحدي السرعة</span>
+                <h2 class="text-2xl sm:text-3xl font-bold mt-2 mb-2">لعبة صايدة القلوب ❤️⚡</h2>
+                <p class="text-gray-300 text-sm mb-4">جمّعي أكبر عدد من القلوب الحمراء والذهب قبل ما الوقت يخلص (15 ثانية)!</p>
+
+                <!-- Game Stats Header -->
+                <div class="flex justify-around items-center bg-black/60 p-3 rounded-2xl border border-white/10 mb-4 text-sm sm:text-base font-bold">
+                    <div class="text-pink-300">النقاط: <span id="gameScore" class="text-amber-300 text-xl">0</span></div>
+                    <div class="text-pink-300">الوقت: <span id="gameTimer" class="text-red-400 text-xl">15</span>ث</div>
+                </div>
+
+                <!-- Interactive Game Play Area -->
+                <div id="gameBox" class="relative w-full h-64 sm:h-80 bg-red-950/40 border-2 border-dashed border-red-500/40 rounded-2xl overflow-hidden cursor-crosshair flex items-center justify-center">
+                    <button id="startGameBtn" onclick="startCatchGame()" class="bg-gradient-to-r from-red-600 to-pink-600 text-white font-black text-lg py-3 px-8 rounded-full shadow-2xl hover:scale-110 transition-all z-20 animate-glow">
+                        ابدأي اللعبة 🚀
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- GAME 4: LOVE & JEALOUSY SCANNER (كاشف بصمة الحب والغيرة) -->
+        <section class="py-12 px-4 max-w-2xl mx-auto text-center">
+            <div class="bg-gradient-to-br from-pink-950/70 via-black to-red-950/80 p-8 rounded-3xl border border-pink-500/40 shadow-2xl backdrop-blur-md">
+                <span class="bg-purple-500/20 text-purple-300 text-xs font-bold px-3 py-1 rounded-full border border-purple-500/30">🔍 لعبة 4: جهاز تحليل الشخصية</span>
+                <h3 class="text-2xl font-bold mt-2 mb-2">كاشف نسبة الغيرة والدلع 📲</h3>
+                <p class="text-gray-300 text-sm mb-6">حطي إصبعك (أو دوسي باستمرار) على البصمة تحت عشان الجهاز يقيس نسبة حبك وغيرتك عليا!</p>
+
+                <div class="relative inline-block my-4">
+                    <button id="scannerBtn" onmousedown="startScan()" onmouseup="stopScan()" ontouchstart="startScan()" ontouchend="stopScan()" class="w-28 h-28 sm:w-32 sm:h-32 rounded-full bg-gradient-to-tr from-pink-600 to-red-600 border-4 border-pink-300 flex items-center justify-center text-4xl text-white shadow-2xl active:scale-95 transition-all select-none">
+                        <i id="fingerIcon" class="fas fa-fingerprint animate-pulse"></i>
+                    </button>
+                    <!-- Ripple ring -->
+                    <div id="scanRing" class="hidden absolute -inset-2 rounded-full border-4 border-pink-400 animate-ping pointer-events-none"></div>
+                </div>
+
+                <div id="scanStatus" class="text-sm font-bold text-pink-300 my-2 min-h-[24px]">إضغطي مع الاستمرار للتحليل...</div>
+
+                <div id="scanResultBox" class="hidden mt-4 p-5 bg-black/70 rounded-2xl border border-pink-500/50 text-right">
+                    <div class="space-y-3">
+                        <div>
+                            <div class="flex justify-between text-xs font-bold text-gray-300 mb-1">
+                                <span>نسبة الحب العذري:</span>
+                                <span class="text-pink-400 font-extrabold">100%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 h-2.5 rounded-full overflow-hidden"><div class="bg-pink-500 h-2.5 rounded-full" style="width: 100%"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-bold text-gray-300 mb-1">
+                                <span>نسبة الغيرة والقمص السريع:</span>
+                                <span class="text-red-400 font-extrabold">98.5% 🙈</span>
+                            </div>
+                            <div class="w-full bg-gray-800 h-2.5 rounded-full overflow-hidden"><div class="bg-red-500 h-2.5 rounded-full" style="width: 98.5%"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-bold text-gray-300 mb-1">
+                                <span>نسبة الكيوت والدلع:</span>
+                                <span class="text-amber-300 font-extrabold">1000% 👑</span>
+                            </div>
+                            <div class="w-full bg-gray-800 h-2.5 rounded-full overflow-hidden"><div class="bg-amber-400 h-2.5 rounded-full" style="width: 100%"></div></div>
+                        </div>
+                    </div>
+                    <p class="text-xs text-center text-amber-200 mt-4 font-messiri">"النتيجة: كائن سكر محتاج يتدلع طول 24 ساعة ويتاكل أكل! ❤️"</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FUTURE BUCKET LIST / أحلامنا اللي هتحقق -->
+        <section class="py-12 px-4 max-w-4xl mx-auto">
+            <div class="bg-gradient-to-b from-red-950/50 to-black/80 backdrop-blur-md p-6 sm:p-10 rounded-3xl border border-red-500/30 shadow-2xl">
+                <div class="text-center mb-8">
+                    <span class="text-amber-300 text-sm font-bold tracking-widest uppercase"><i class="fas fa-star ml-1"></i> الجاي أحلى وأحلى</span>
+                    <h2 class="text-3xl font-bold mt-1 text-white">أمنيات ومغامرات هنعملها سوا 🌟</h2>
+                    <p class="text-gray-400 text-sm mt-1">قائمة الحاجات اللي لازم نعملها ونحققها مع بعض قريب إن شاء الله:</p>
+                </div>
+
+                <div class="space-y-4" id="bucketList">
+
+                    <!-- Wish 1 -->
+                    <div class="flex items-center p-4 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 transition-all cursor-pointer group" onclick="toggleWish(this)">
+                        <div class="w-8 h-8 rounded-full border-2 border-pink-400 flex items-center justify-center ml-4 group-hover:border-pink-300 transition-colors shrink-0">
+                            <i class="fas fa-check text-pink-400 opacity-0 transition-opacity check-icon"></i>
+                        </div>
+                        <div class="flex-grow">
+                            <h4 class="text-lg font-bold text-pink-100">نسافر مصيف أو رحلة للبحر مع بعض 🏖️</h4>
+                            <p class="text-xs text-gray-400">نقعد قدام البحر بالليل ونسمع أغاني رايقة مع بعض.</p>
+                        </div>
+                        <span class="text-xs bg-red-500/20 text-red-300 px-3 py-1 rounded-full border border-red-500/30">حلم قريب جداً</span>
+                    </div>
+
+                    <!-- Wish 2 -->
+                    <div class="flex items-center p-4 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 transition-all cursor-pointer group" onclick="toggleWish(this)">
+                        <div class="w-8 h-8 rounded-full border-2 border-pink-400 flex items-center justify-center ml-4 group-hover:border-pink-300 transition-colors shrink-0">
+                            <i class="fas fa-check text-pink-400 opacity-0 transition-opacity check-icon"></i>
+                        </div>
+                        <div class="flex-grow">
+                            <h4 class="text-lg font-bold text-pink-100">نبني بيتنا الصغير الدافئ 🏡</h4>
+                            <p class="text-xs text-gray-400">مكان يجمعنا على خير ونجهزه بحب على ذوقنا.</p>
+                        </div>
+                        <span class="text-xs bg-amber-500/20 text-amber-300 px-3 py-1 rounded-full border border-amber-500/30">أكبر حلم</span>
+                    </div>
+
+                    <!-- Wish 3 -->
+                    <div class="flex items-center p-4 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 transition-all cursor-pointer group" onclick="toggleWish(this)">
+                        <div class="w-8 h-8 rounded-full border-2 border-pink-400 flex items-center justify-center ml-4 group-hover:border-pink-300 transition-colors shrink-0">
+                            <i class="fas fa-check text-pink-400 opacity-0 transition-opacity check-icon"></i>
+                        </div>
+                        <div class="flex-grow">
+                            <h4 class="text-lg font-bold text-pink-100">نطبخ أكلة جديدة سوا ونعك المطبخ 🍝</h4>
+                            <p class="text-xs text-gray-400">نجرب وصفة غريبة ونفضل نضحك على النتيجة!</p>
+                        </div>
+                        <span class="text-xs bg-emerald-500/20 text-emerald-300 px-3 py-1 rounded-full border border-emerald-500/30">الويك إند الجاي</span>
+                    </div>
+
+                    <!-- Wish 4 -->
+                    <div class="flex items-center p-4 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 transition-all cursor-pointer group" onclick="toggleWish(this)">
+                        <div class="w-8 h-8 rounded-full border-2 border-pink-400 flex items-center justify-center ml-4 group-hover:border-pink-300 transition-colors shrink-0">
+                            <i class="fas fa-check text-pink-400 opacity-0 transition-opacity check-icon"></i>
+                        </div>
+                        <div class="flex-grow">
+                            <h4 class="text-lg font-bold text-pink-100">نحضر حفلة لتامر حسني سوا 🎤</h4>
+                            <p class="text-xs text-gray-400">ونغني معاهم كل الأغاني اللي بنحبها من قلبنا.</p>
+                        </div>
+                        <span class="text-xs bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full border border-purple-500/30">سهرة ممتازة</span>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- LOVE LETTERS / FLIP CARDS SECTION -->
+        <section class="py-12 px-4 max-w-6xl mx-auto">
+            <div class="text-center mb-10">
+                <span class="text-red-400 text-sm font-bold tracking-widest uppercase"><i class="fas fa-envelope-open-text ml-1"></i> كلام من ورا القلب</span>
+                <h2 class="text-3xl sm:text-4xl font-bold mt-2">رسائل متغطية عشانكِ 💌</h2>
+                <p class="text-gray-400 text-sm mt-1">اضغطي على أي كارت عشان تكشفي الكلام السري جوه!</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 h-[260px] sm:h-[280px]">
+
+                <!-- Flip Card 1 -->
+                <div class="flip-card h-full cursor-pointer" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front bg-gradient-to-br from-red-900 to-pink-950 border border-red-500/30 p-6 flex flex-col items-center justify-center shadow-xl">
+                            <div class="w-16 h-16 rounded-full bg-red-600/30 flex items-center justify-center mb-4 border border-red-400">
+                                <i class="fas fa-heart text-2xl text-red-400"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-white">ليه أنتِ بالذات؟</h3>
+                            <span class="text-xs text-pink-300 mt-2">اضغطي عشان تعرفي السر 👈</span>
+                        </div>
+                        <div class="flip-card-back bg-red-950 border border-red-500/50 p-6 flex flex-col items-center justify-center text-center shadow-xl">
+                            <p class="font-messiri text-lg text-pink-100 leading-relaxed">
+                                "عشان أنتِ الطيبة والجدعنة والحنية كلها. معكي بحس إني على طبيعتي ومش محتاج أتطبع.. أنتِ أماني وسندي."
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Flip Card 2 -->
+                <div class="flip-card h-full cursor-pointer" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front bg-gradient-to-br from-purple-900 to-pink-950 border border-purple-500/30 p-6 flex flex-col items-center justify-center shadow-xl">
+                            <div class="w-16 h-16 rounded-full bg-purple-600/30 flex items-center justify-center mb-4 border border-purple-400">
+                                <i class="fas fa-crown text-2xl text-amber-300"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-white">وعدي ليكي</h3>
+                            <span class="text-xs text-purple-300 mt-2">اضغطي عشان تعرفي السر 👈</span>
+                        </div>
+                        <div class="flip-card-back bg-purple-950 border border-purple-500/50 p-6 flex flex-col items-center justify-center text-center shadow-xl">
+                            <p class="font-messiri text-lg text-purple-100 leading-relaxed">
+                                "بوعدك إني أكون دايماً في ظهرك، أفرح لنيحاتك، وأخفف عنك في أيامك الصعبة.. ومش هسيب إيدك أبداً."
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Flip Card 3 -->
+                <div class="flip-card h-full cursor-pointer" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front bg-gradient-to-br from-amber-900 to-red-950 border border-amber-500/30 p-6 flex flex-col items-center justify-center shadow-xl">
+                            <div class="w-16 h-16 rounded-full bg-amber-600/30 flex items-center justify-center mb-4 border border-amber-400">
+                                <i class="fas fa-infinity text-2xl text-amber-300"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-white">لحد آخر العمر...</h3>
+                            <span class="text-xs text-amber-300 mt-2">اضغطي عشان تعرفي السر 👈</span>
+                        </div>
+                        <div class="flip-card-back bg-stone-900 border border-amber-500/50 p-6 flex flex-col items-center justify-center text-center shadow-xl">
+                            <p class="font-messiri text-lg text-amber-100 leading-relaxed">
+                                "حبي ليكي كل يوم بيزيد عن اليوم اللي قبله. أنتِ اختياري الأول والأخير وكل يوم بصحى بحبك فيه أكتر."
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- RANDOM EGYPTIAN LOVE NOTES GENERATOR -->
+        <section class="py-12 px-4 max-w-2xl mx-auto text-center">
+            <div class="bg-gradient-to-r from-red-900/50 via-pink-900/50 to-red-900/50 p-8 rounded-3xl border border-pink-500/40 shadow-2xl backdrop-blur-md">
+                <i class="fas fa-magic text-3xl text-pink-400 mb-4 animate-bounce"></i>
+                <h3 class="text-2xl font-bold mb-2">صندوق الرسائل السري 🎁</h3>
+                <p class="text-gray-300 text-sm mb-6">دوسي على الزرار كل شوية عشان تطلعلك رسالة حب جديدة من قلبي ليكي:</p>
+
+                <div id="loveNoteBox" class="min-h-[110px] flex items-center justify-center p-5 bg-black/60 rounded-2xl border border-white/10 mb-6 transition-all duration-500">
+                    <p id="noteText" class="font-messiri text-xl text-amber-200 leading-relaxed">
+                        "دوسي على الزرار تحت عشان تقري أول رسالة! 💌"
+                    </p>
+                </div>
+
+                <button onclick="generateLoveNote()" class="bg-gradient-to-r from-pink-600 to-red-600 hover:from-pink-500 hover:to-red-500 text-white font-black py-3 px-8 rounded-full shadow-xl transition-all transform hover:scale-105 active:scale-95 focus:outline-none">
+                    <i class="fas fa-heart ml-2"></i> هات رسالة جديدة يا حب!
+                </button>
+            </div>
+        </section>
+
+        <!-- FOOTER MESSAGE -->
+        <footer class="text-center py-8 text-gray-500 text-sm border-t border-white/10 mt-12">
+            <p class="font-messiri text-xl text-pink-300 font-bold mb-1">اتعمل بحب وبكل مشاعري عشانك أنتِ بس يا أغلى الناس ❤️</p>
+            <p class="text-xs text-gray-400">ربنا يخلينا لبعض وما يحرمنيش من ضحكتك أبداً</p>
+        </footer>
+
+    </main>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Adjust start date as needed (Year, Month - 1, Day, Hour, Minute)
+        const startDate = new Date(2023, 0, 1, 0, 0); // تاريخ اللقاء الأول (يمكنك تعديله)
+
+        // Quiz Data
+        const quizData = [
+            {
+                q: "أكتر حاجة بحبها فيكي أول ما بشوفك؟ 🙈",
+                options: ["ضحكتك وعيونك العسل", "شقاوتك وطيبتك", "طريقتك وأنتِ بتتدلعي", "كل التفاصيل دي سوا ❤️"]
+            },
+            {
+                q: "لما بنتخانق أو نزعل من بعض، مين بيبدأ يصالح الأول؟ 😅",
+                options: ["أنا طبعاً عشان مائقدرش على زعلك", "أنتِ بكلمة حلوة منك بتسحريني", "بنتصالح في ساعتها عشان بنحب بعض", "بننسى الخناقة ونروح نأكل! 🍕"]
+            },
+            {
+                q: "أحلى مكالمة أو يوم قضيناه سوا كان إمتى؟ ✨",
+                options: ["أول يوم اتكلمنا فيه بالساعات", "يوم ما خرجنا سوا وقضينا اليوم كله ضحك", "كل يوم بنحكي فيه سوا هو أحلى يوم", "لما بنفضل نرغي لحد الفجر 🌙"]
+            }
+        ];
+        let currentQuestion = 0;
+
+        // Random Love Notes
+        const loveNotes = [
+            "أنتِ مش بس حبيبتي، أنتِ صاحبتي وأمي وبنتي وكل دنيتي ❤️",
+            "كل ثانية بتعدي وأنتِ معايا بحمد ربنا عليكي 🌹",
+            "ضحكتك بالنسبة لي هي الموسيقى الوحيدة اللي بتهدّي بالي 🎵",
+            "لو لفيت الدنيا دي كلها مش هلاقي واحدة في جمال وطيبة قلبك 👑",
+            "أنتِ أحلى قدر حصل في حياتي، ربنا يديمك ليا العمر كله ✨",
+            "وجودك جنبي بيخليني قادر أواجه أي حاجة في الدنيا 💗",
+            "بصي في المراية هتشوفي أحلى بنوتة أخدت قلبي وعقلي 🙈"
+        ];
+
+        // Envelope Interaction Logic
+        function openEnvelope() {
+            const envelope = document.getElementById('envelope');
+            const waxSeal = document.getElementById('waxSeal');
+            const welcomeAction = document.getElementById('welcomeAction');
+            const bgMusic = document.getElementById('bgMusic');
+
+            if (envelope.classList.contains('open')) return;
+
+            // Add open animation
+            envelope.classList.add('open');
+            waxSeal.style.opacity = '0';
+            waxSeal.style.transform = 'scale(0)';
+
+            // Try playing ambient music
+            if (bgMusic) {
+                bgMusic.play().then(() => {
+                    document.getElementById('musicIcon').classList.add('animate-spin');
+                }).catch(e => console.log("Audio autoplay prevented by browser:", e));
+            }
+
+            // Spawn floating hearts from envelope
+            createFloatingHearts();
+
+            // Show Welcome Action button smoothly
+            setTimeout(() => {
+                welcomeAction.classList.remove('hidden');
+                setTimeout(() => {
+                    welcomeAction.classList.remove('opacity-0', 'translate-y-6');
+                }, 50);
+            }, 800);
+        }
+
+        // Music Toggle Logic
+        const musicToggle = document.getElementById('musicToggle');
+        if (musicToggle) {
+            musicToggle.addEventListener('click', () => {
+                const bgMusic = document.getElementById('bgMusic');
+                const musicIcon = document.getElementById('musicIcon');
+                if (bgMusic.paused) {
+                    bgMusic.play();
+                    musicIcon.classList.add('animate-spin');
+                } else {
+                    bgMusic.pause();
+                    musicIcon.classList.remove('animate-spin');
+                }
+            });
+        }
+
+        // ==========================================
+        // GAME 2: SPIN WHEEL LOGIC
+        // ==========================================
+        const wheelPrizes = [
+            "عزومة أكلة بتحبيها 🍝",
+            "مكالمة رغي لحد الفجر 📞",
+            "خروجة فُسحة المكان اللي تختاريه 🚗",
+            "حضن كبير أوي لما نشوف بعض 🫂",
+            "شوكولاتة وغزل للبطل 🍫",
+            "يوم كامل مفيش فيه أي قمص! 😇"
+        ];
+        const wheelColors = ["#e63946", "#d62828", "#f77f00", "#fcbf49", "#800020", "#e01e37"];
+
+        let currentAngle = 0;
+        let isSpinning = false;
+
+        function drawWheel() {
+            const canvas = document.getElementById("wheelCanvas");
+            if (!canvas) return;
+            const ctx = canvas.getContext("2d");
+            const numSlices = wheelPrizes.length;
+            const sliceAngle = (2 * Math.PI) / numSlices;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            for (let i = 0; i < numSlices; i++) {
+                const angle = i * sliceAngle;
+                ctx.beginPath();
+                ctx.fillStyle = wheelColors[i % wheelColors.length];
+                ctx.moveTo(160, 160);
+                ctx.arc(160, 160, 155, angle, angle + sliceAngle);
+                ctx.lineTo(160, 160);
+                ctx.fill();
+
+                // Draw Text
+                ctx.save();
+                ctx.translate(160, 160);
+                ctx.rotate(angle + sliceAngle / 2);
+                ctx.textAlign = "right";
+                ctx.fillStyle = "#ffffff";
+                ctx.font = "bold 13px Cairo";
+                ctx.fillText(wheelPrizes[i], 140, 5);
+                ctx.restore();
+            }
+        }
+
+        function spinWheel() {
+            if (isSpinning) return;
+            isSpinning = true;
+
+            const wheelCanvas = document.getElementById('wheelCanvas');
+            const resultBox = document.getElementById('wheelResult');
+            const prizeText = document.getElementById('wheelPrizeText');
+
+            resultBox.classList.add('hidden');
+
+            const randomRotations = Math.floor(Math.random() * 5 + 5) * 360;
+            const randomPrizeIndex = Math.floor(Math.random() * wheelPrizes.length);
+            const sliceAngle = 360 / wheelPrizes.length;
+            
+            // Calculate target angle to align slice with pointer top
+            const targetRotation = randomRotations + (360 - (randomPrizeIndex * sliceAngle) - (sliceAngle / 2) - 90);
+
+            currentAngle += targetRotation;
+            wheelCanvas.style.transform = `rotate(${currentAngle}deg)`;
+
+            setTimeout(() => {
+                isSpinning = false;
+                prizeText.innerText = wheelPrizes[randomPrizeIndex];
+                resultBox.classList.remove('hidden');
+                triggerConfetti();
+            }, 1000);
+        }
+
+        // Initialize Wheel Draw
+        setTimeout(drawWheel, 500);
+
+        // ==========================================
+        // GAME 3: HEART CATCHER MINI-GAME LOGIC
+        // ==========================================
+        let gameScore = 0;
+        let gameTimeLeft = 15;
+        let gameInterval = null;
+        let spawnInterval = null;
+        let isGameRunning = false;
+
+        function startCatchGame() {
+            if (isGameRunning) return;
+
+            const gameBox = document.getElementById('gameBox');
+            document.getElementById('startGameBtn').style.display = 'none';
+
+            gameScore = 0;
+            gameTimeLeft = 15;
+            isGameRunning = true;
+
+            document.getElementById('gameScore').innerText = gameScore;
+            document.getElementById('gameTimer').innerText = gameTimeLeft;
+
+            // Timer Counter
+            gameInterval = setInterval(() => {
+                gameTimeLeft--;
+                document.getElementById('gameTimer').innerText = gameTimeLeft;
+
+                if (gameTimeLeft <= 0) {
+                    endCatchGame();
+                }
+            }, 1000);
+
+            // Spawn Targets
+            spawnInterval = setInterval(spawnHeartTarget, 550);
+        }
+
+        function spawnHeartTarget() {
+            const gameBox = document.getElementById('gameBox');
+            if (!gameBox || !isGameRunning) return;
+
+            const target = document.createElement('div');
+            const isGolden = Math.random() > 0.75;
+            
+            target.className = `absolute cursor-pointer transform hover:scale-125 transition-transform flex items-center justify-center text-2xl sm:text-3xl select-none animate-bounce`;
+            target.innerHTML = isGolden ? '💛' : '❤️';
+
+            const x = Math.random() * (gameBox.clientWidth - 50);
+            const y = Math.random() * (gameBox.clientHeight - 50);
+
+            target.style.left = `${x}px`;
+            target.style.top = `${y}px`;
+
+            target.onclick = (e) => {
+                e.stopPropagation();
+                gameScore += isGolden ? 3 : 1;
+                document.getElementById('gameScore').innerText = gameScore;
+                triggerSmallConfetti(target);
+                target.remove();
+            };
+
+            gameBox.appendChild(target);
+
+            setTimeout(() => {
+                if (target.parentNode) target.remove();
+            }, 1200);
+        }
+
+        function endCatchGame() {
+            isGameRunning = false;
+            clearInterval(gameInterval);
+            clearInterval(spawnInterval);
+
+            const gameBox = document.getElementById('gameBox');
+            gameBox.innerHTML = `
+                <div class="text-center p-4 z-20">
+                    <i class="fas fa-crown text-4xl text-amber-300 mb-2"></i>
+                    <h3 class="text-2xl font-black text-white">عاش يا بطلة! 👏</h3>
+                    <p class="text-pink-200 text-lg my-2 font-messiri">جمعتِ ${gameScore} نقطة حب!</p>
+                    <button onclick="startCatchGame()" class="mt-2 bg-gradient-to-r from-red-600 to-pink-600 text-white font-bold py-2 px-6 rounded-full text-sm hover:scale-105 transition-transform">
+                        العب تاني 🔄
+                    </button>
+                </div>
+            `;
+            triggerConfetti();
+        }
+
+        // ==========================================
+        // GAME 4: FINGERPRINT SCANNER LOGIC
+        // ==========================================
+        let scanTimer = null;
+
+        function startScan() {
+            const ring = document.getElementById('scanRing');
+            const status = document.getElementById('scanStatus');
+            const result = document.getElementById('scanResultBox');
+
+            ring.classList.remove('hidden');
+            result.classList.add('hidden');
+            status.innerText = "جاري مسح البصمة وتحليل المشاعر... ⏳";
+
+            scanTimer = setTimeout(() => {
+                ring.classList.add('hidden');
+                status.innerText = "تم التحليل بنجاح! ✅";
+                result.classList.remove('hidden');
+                triggerConfetti();
+            }, 2000);
+        }
+
+        function stopScan() {
+            if (scanTimer) {
+                clearTimeout(scanTimer);
+                document.getElementById('scanRing').classList.add('hidden');
+                if (document.getElementById('scanResultBox').classList.contains('hidden')) {
+                    document.getElementById('scanStatus').innerText = "اثبتي شوية كمان عشان يكمل التحليل! 😅";
+                }
+            }
+        }
+
+        // Start Main Journey Transition
+        function startMainJourney() {
+            const envelopeSection = document.getElementById('envelopeSection');
+            const mainContent = document.getElementById('mainContent');
+
+            triggerConfetti();
+
+            envelopeSection.classList.add('opacity-0');
+
+            setTimeout(() => {
+                envelopeSection.classList.add('hidden');
+                mainContent.classList.remove('hidden');
+                
+                setTimeout(() => {
+                    mainContent.classList.remove('opacity-0');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }, 50);
+
+                // Start Timers & Quiz
+                updateLoveCounter();
+                setInterval(updateLoveCounter, 1000);
+                loadQuizQuestion();
+
+            }, 1000);
+        }
+
+        // Live Love Counter & Calculations
+        function updateLoveCounter() {
+            const now = new Date();
+            const diff = now - startDate;
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((diff / 1000 / 60) % 60);
+            const seconds = Math.floor((diff / 1000) % 60);
+
+            document.getElementById('days').innerText = days;
+            document.getElementById('hours').innerText = hours;
+            document.getElementById('minutes').innerText = minutes;
+            document.getElementById('seconds').innerText = seconds;
+
+            // Extra Fun Stats
+            const beats = (days * 24 * 60 * 75) + (hours * 60 * 75);
+            const smileCount = (days * 12) + hours;
+            document.getElementById('heartbeats').innerText = beats.toLocaleString('ar-EG');
+            document.getElementById('smiles').innerText = smileCount.toLocaleString('ar-EG');
+        }
+
+        // Quiz Logic
+        function loadQuizQuestion() {
+            if (currentQuestion >= quizData.length) {
+                document.getElementById('quizContainer').classList.add('hidden');
+                document.getElementById('quizResult').classList.remove('hidden');
+                triggerConfetti();
+                return;
+            }
+
+            const data = quizData[currentQuestion];
+            document.getElementById('questionText').innerText = `${currentQuestion + 1}. ${data.q}`;
+
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+
+            data.options.forEach((option, idx) => {
+                const btn = document.createElement('button');
+                btn.className = "p-3 bg-white/10 hover:bg-pink-600/60 border border-white/20 rounded-xl font-bold text-white transition-all text-sm sm:text-base text-right px-4 flex items-center justify-between";
+                btn.innerHTML = `<span>${option}</span> <i class="far fa-heart opacity-50"></i>`;
+                btn.onclick = () => handleAnswer(idx);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function handleAnswer(selectedIdx) {
+            triggerSmallConfetti(event.target);
+            currentQuestion++;
+            setTimeout(loadQuizQuestion, 400);
+        }
+
+        function resetQuiz() {
+            currentQuestion = 0;
+            document.getElementById('quizContainer').classList.remove('hidden');
+            document.getElementById('quizResult').classList.add('hidden');
+            loadQuizQuestion();
+        }
+
+        // Bucket List Toggle
+        function toggleWish(element) {
+            const checkIcon = element.querySelector('.check-icon');
+            if (checkIcon.classList.contains('opacity-0')) {
+                checkIcon.classList.remove('opacity-0');
+                element.classList.add('bg-pink-950/50', 'border-pink-500/60');
+                triggerSmallConfetti(element);
+            } else {
+                checkIcon.classList.add('opacity-0');
+                element.classList.remove('bg-pink-950/50', 'border-pink-500/60');
+            }
+        }
+
+        // Random Love Note Generator
+        function generateLoveNote() {
+            const noteText = document.getElementById('noteText');
+            const noteBox = document.getElementById('loveNoteBox');
+
+            noteText.style.opacity = '0';
+            
+            setTimeout(() => {
+                const randomIndex = Math.floor(Math.random() * loveNotes.length);
+                noteText.innerText = loveNotes[randomIndex];
+                noteText.style.opacity = '1';
+                
+                noteBox.classList.add('border-pink-500');
+                setTimeout(() => {
+                    noteBox.classList.remove('border-pink-500');
+                }, 800);
+            }, 300);
+        }
+
+        // Floating Hearts Background Animation
+        function createFloatingHearts() {
+            const container = document.getElementById('heartsContainer');
+            const heartIcons = ['fa-heart', 'fa-heart text-pink-400', 'fa-heart text-red-500', 'fa-heart text-roseGold'];
+
+            for (let i = 0; i < 25; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('i');
+                    const randomIcon = heartIcons[Math.floor(Math.random() * heartIcons.length)];
+                    heart.className = `fas ${randomIcon} floating-heart text-lg sm:text-2xl`;
+                    
+                    heart.style.left = Math.random() * 100 + 'vw';
+                    heart.style.bottom = '-20px';
+                    heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+
+                    container.appendChild(heart);
+
+                    setTimeout(() => { heart.remove(); }, 6000);
+                }, i * 250);
+            }
+        }
+
+        // Spawn ambient floating hearts periodically
+        setInterval(() => {
+            const container = document.getElementById('heartsContainer');
+            if (container.childElementCount < 20) {
+                const heart = document.createElement('i');
+                heart.className = `fas fa-heart text-pink-500/30 floating-heart text-sm sm:text-lg`;
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.bottom = '-20px';
+                heart.style.animationDuration = (Math.random() * 4 + 4) + 's';
+                container.appendChild(heart);
+
+                setTimeout(() => { heart.remove(); }, 8000);
+            }
+        }, 1200);
+
+        // Click on page spawns mini hearts
+        document.addEventListener('click', (e) => {
+            const heart = document.createElement('i');
+            heart.className = 'fas fa-heart text-pink-500 fixed pointer-events-none z-50 text-xl animate-ping';
+            heart.style.left = (e.clientX - 10) + 'px';
+            heart.style.top = (e.clientY - 10) + 'px';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 700);
+        });
+
+        // Confetti Triggers
+        function triggerConfetti() {
+            if (typeof confetti === 'function') {
+                confetti({
+                    particleCount: 120,
+                    spread: 80,
+                    origin: { y: 0.6 },
+                    colors: ['#e63946', '#ffb703', '#ff4d6d', '#ffffff']
+                });
+            }
+        }
+
+        function triggerSmallConfetti(target) {
+            if (typeof confetti === 'function') {
+                const rect = target.getBoundingClientRect ? target.getBoundingClientRect() : { left: window.innerWidth/2, top: window.innerHeight/2, width: 0, height: 0 };
+                confetti({
+                    particleCount: 30,
+                    spread: 50,
+                    origin: {
+                        x: (rect.left + rect.width / 2) / window.innerWidth,
+                        y: (rect.top + rect.height / 2) / window.innerHeight
+                    },
+                    colors: ['#ff4d6d', '#ffffff', '#ffd166']
+                });
+            }
+        }
+    </script>
+</body>
+</html>
